@@ -8,19 +8,20 @@ class ZMap extends React.Component {
 		super(props);
 
 		this.loader = new Loader();
+		this.map = null;
 	}
 
 	async initialMap() {
 
 		await this.loader.script('http://api.its-mo.com/cgi/loader.cgi?key=JSZ832466564885&ver=2.0&api=zdcmap.js&enc=EUC&force=1');
 
-		console.log(window.ZDC);
-
+		var ZDC = window.ZDC;
 		var lat = 35.6778614;
 		var lon = 139.7703167;
-		var map = new window.ZDC.Map(this.refs.map, {
-			latlon: new window.ZDC.LatLon(lat, lon),
-			zoom: 3
+		this.map = new ZDC.Map(this.refs.map, {
+			latlon: new ZDC.LatLon(lat, lon),
+			mapType: ZDC.MAPTYPE_HIGHRES_DEFAULT,
+			zoom: 12
 		});
 	}
 
@@ -29,9 +30,26 @@ class ZMap extends React.Component {
 		this.initialMap();
 	}
 
+	onWidgetAdded = (widget) => {
+		this.map.addWidget(widget);
+	}
+
 	render() {
-		return <div ref='map' className='map' />
+		return (
+			<div ref='map' className='map'>
+				{React.Children.map(this.props.children, (child) => {
+					return React.cloneElement(child, {
+						onWidgetAdded: this.onWidgetAdded
+					});
+				})}
+			</div>
+		);
 	}
 }
+				/*
+				{this.props.children.map((child) => {
+					return <child onWidgetAdded={this.onWidgetAdded} />
+				})}
+				*/
 
 export default ZMap;
