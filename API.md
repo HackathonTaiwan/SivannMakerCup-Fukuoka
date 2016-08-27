@@ -6,7 +6,7 @@ Here is APIs what we need to implement:
 ```js
 {
   type: 'endpoint',
-  endpointId: '<Unique ID>'
+  endpointId: '<Unique ID of Endpoint>'
   online: true,
   lat: <GPS Location>,
   lon: <GPS Location>
