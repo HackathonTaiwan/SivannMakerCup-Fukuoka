@@ -3,7 +3,7 @@
 Here is APIs what we need to implement:
 
 * Renew GPS location
-```json
+```js
 {
   type: 'endpoint',
   endpointId: '<Unique ID>'
@@ -13,7 +13,7 @@ Here is APIs what we need to implement:
 }
 ```
 * Start Receiving GPS location
-```json
+```js
 {
   type: 'action',
   action: 'hookEndpoint',
@@ -21,7 +21,7 @@ Here is APIs what we need to implement:
 }
 ```
 * Stop Receive GPS location
-```json
+```js
 {
   type: 'action',
   action: 'hookEndpoint',
