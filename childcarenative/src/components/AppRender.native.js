@@ -7,7 +7,13 @@ import {
 } from 'react-native';
 
 import Geolocation from './Geolocation/Geolocation';
-import FreebirdText from './FreebirdText/FreebirdText';
+
+export default function () {
+  return (
+  <View style={styles.container}>
+    <Geolocation />
+  </View>);
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -17,11 +23,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 });
-
-export default function () {
-  return (
-  <View style={styles.container}>
-    <Geolocation />
-    <FreebirdText />
-  </View>);
-}
