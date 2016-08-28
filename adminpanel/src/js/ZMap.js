@@ -13,11 +13,11 @@ class ZMap extends React.Component {
 
 	async initialMap() {
 
-		await this.loader.script('http://api.its-mo.com/cgi/loader.cgi?key=JSZ832466564885&ver=2.0&api=zdcmap.js&enc=EUC&force=1');
+		await this.loader.script('http://api.its-mo.com/cgi/loader.cgi?key=JSZ832466564885&ver=2.0&api=zdcmap.js,userwidget.js&enc=EUC&force=1');
 
 		var ZDC = window.ZDC;
-		var lat = 35.6778614;
-		var lon = 139.7703167;
+		var lat = 33.5877158;
+		var lon = 130.4186799;
 		this.map = new ZDC.Map(this.refs.map, {
 			latlon: new ZDC.LatLon(lat, lon),
 			mapType: ZDC.MAPTYPE_HIGHRES_DEFAULT,

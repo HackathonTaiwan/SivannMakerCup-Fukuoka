@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Utils from './Utils';
 import ZMap from './ZMap';
 import ZMapEndpoint from './ZMapEndpoint';
 
@@ -16,6 +17,7 @@ class App extends React.Component {
 			endpoints: {}
 		};
 		this.signalReceiver = new SignalReceiver();
+		this.retry = 3;
 	}
 
 	componentWillMount() {
@@ -27,13 +29,34 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		this.initialize();
+		this.initializeSignalReceiver();
 	}
 
-	async initialize() {
+	async initializeSignalReceiver() {
 
-		//await this.signalReceiver.connect('wss://echo.websocket.org');
-		await this.signalReceiver.connect('ws://hackathontw.mybluemix.net/ws/location');
+		try {
+			//await this.signalReceiver.connect('wss://echo.websocket.org');
+			console.log('Connecting to server...');
+			await this.signalReceiver.connect('ws://hackathontw.mybluemix.net/map/location');
+			console.log('Connected');
+		} catch(e) {
+			await this.reconnect();
+		}
+	}
+
+	async reconnect() {
+
+		if (!this.retry) {
+			this.retry = 3;
+			await Utils.delay(10000);
+		} else {
+			await Utils.delay(1000);
+		}
+
+		this.retry--;
+
+		console.log('Reconnecting...');
+		return await this.initializeSignalReceiver();
 	}
 
 	onEndpointChanged = (endpoints) => {
